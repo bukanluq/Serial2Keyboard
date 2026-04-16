@@ -1,46 +1,64 @@
-name: Build Serial2Keyboard Apps
+name: Build Serial2Key Executables
 
-# This tells GitHub to run the build every time you upload new code
 on:
   push:
-    branches: [ main, master ]
-  workflow_dispatch: # Allows you to trigger it manually
+    branches: [ "main" ] # Triggers when you push to main
+  workflow_dispatch:     # Allows you to click a "Run" button manually
 
 jobs:
   build:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    
-    # Run this job 3 times: on Windows, Mac, and Linux
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          # Windows x64
+          - os: windows-latest
+            artifact_name: Serial2Key-Windows.exe
+            build_command: pyinstaller --noconsole --onefile --name Serial2Key-Windows main.py
+            
+          # macOS Apple Silicon (M1/M2/M3)
+          - os: macos-latest
+            artifact_name: Serial2Key-macOS-AppleSilicon
+            build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-AppleSilicon main.py
+            
+          # macOS Intel
+          - os: macos-13
+            artifact_name: Serial2Key-macOS-Intel
+            build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-Intel main.py
+            
+          # Linux x64 (Ubuntu)
+          - os: ubuntu-latest
+            artifact_name: Serial2Key-Linux-x64
+            build_command: pyinstaller --noconsole --onefile --name Serial2Key-Linux-x64 main.py
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Setup Python
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.11' # 3.11 is highly stable for compiling UI apps
 
-    # Linux requires an extra system library for the UI to compile
-    - name: Install Linux UI Dependencies
+    - name: Install Linux System Dependencies
       if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y python3-tk
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-tk python3-dev libx11-dev
 
-    - name: Install Python Libraries
+    - name: Install Python Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Build with PyInstaller
-      run: pyinstaller --onefile --windowed --noconsole main.py
+    - name: Build Executable with PyInstaller
+      run: ${{ matrix.build_command }}
 
-    # This zips up the final .exe, .app, and Linux binary so you can download it
-    - name: Upload Finished App
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Serial2Keyboard-${{ runner.os }}
-        path: dist/*
+        name: ${{ matrix.artifact_name }}
+        path: |
+          dist/*.exe
+          dist/Serial2Key*
