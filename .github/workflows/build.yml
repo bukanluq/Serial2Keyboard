@@ -23,7 +23,7 @@ jobs:
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-AppleSilicon main.py
             
           # macOS Intel
-          - os: macos-13
+          - os: macos-12  # <-- Change this from 13 to 12
             artifact_name: Serial2Key-macOS-Intel
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-Intel main.py
             
