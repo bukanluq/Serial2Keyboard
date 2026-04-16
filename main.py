@@ -34,7 +34,7 @@ class Serial2KeyboardApp(ctk.CTk):
         self.title_label = ctk.CTkLabel(self, text="Serial2Keyboard", font=("Segoe UI", 24, "bold"))
         self.title_label.pack(pady=(25, 2))
 
-        self.subtitle_label = ctk.CTkLabel(self, text="by E21 Academy", font=("Segoe UI", 12, "italic"), text_color="gray")
+        self.subtitle_label = ctk.CTkLabel(self, text="by bukanluq", font=("Segoe UI", 12, "italic"), text_color="gray")
         self.subtitle_label.pack(pady=(0, 20))
 
         # Controls Frame
