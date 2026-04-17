@@ -1,3 +1,6 @@
+<img width="852" height="582" alt="image" src="https://github.com/user-attachments/assets/0b0c181d-7a30-4b9d-b004-a91d16b7c957" />
+
+
 ## 🚀 Prebuilt Executables
 
 Precompiled binaries are automatically generated using GitHub Actions.
