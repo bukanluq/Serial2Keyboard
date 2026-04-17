@@ -23,7 +23,7 @@ jobs:
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-AppleSilicon main.py
             
           # macOS Intel
-          - os: macos-11
+          - os: macos-15-intel
             artifact_name: Serial2Key-macOS-Intel
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-Intel main.py
             
