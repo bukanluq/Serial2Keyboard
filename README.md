@@ -1,7 +1,3 @@
-Here’s a cleaner, more professional version of your README section while keeping it simple and easy to scan:
-
----
-
 ## 🚀 Prebuilt Executables
 
 Precompiled binaries are automatically generated using GitHub Actions.
@@ -41,7 +37,3 @@ Download the latest build for your platform below:
 * Windows version is the most stable and recommended.
 * Linux version works but may have UI issues depending on the environment.
 * macOS builds are provided, but testing is still needed.
-
----
-
-If you want, I can upgrade the whole README into a proper open-source style (badges, screenshots, usage, features, etc.) so it looks like a serious project.
