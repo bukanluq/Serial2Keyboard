@@ -2,8 +2,8 @@ name: Build Serial2Key Executables
 
 on:
   push:
-    branches: [ "main" ] # Triggers when you push to main
-  workflow_dispatch:     # Allows you to click a "Run" button manually
+    branches: [ main, master ]
+  workflow_dispatch: # Allows you to trigger it manually
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-AppleSilicon main.py
             
           # macOS Intel
-          - os: macos-12  # <-- Change this from 13 to 12
+          - os: macos-11
             artifact_name: Serial2Key-macOS-Intel
             build_command: pyinstaller --noconsole --onefile --name Serial2Key-macOS-Intel main.py
             
